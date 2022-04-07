@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="AdvancedLogger:jar">
+    <output-path>$PROJECT_DIR$/builds</output-path>
+    <root id="archive" name="AdvancedLogger.jar">
+      <element id="module-output" name="AdvancedLogger" />
+    </root>
+  </artifact>
+</component>
