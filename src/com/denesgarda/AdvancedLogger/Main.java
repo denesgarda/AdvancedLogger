@@ -221,41 +221,45 @@ public class Main extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerInteractEntityEvent(PlayerInteractEntityEvent event) {
-        String s = event.getPlayer().getDisplayName() + " interacted with " + event.getRightClicked().getType().name() + " at " + LocationManager.xyz(event.getPlayer().getLocation());
-        Logger.log(Logger.Level.PLAYER, "PlayerInteractEntityEvent", s);
+        try {
+            String s = event.getPlayer().getDisplayName() + " interacted with " + event.getRightClicked().getType().name() + " at " + LocationManager.xyz(event.getPlayer().getLocation());
+            Logger.log(Logger.Level.PLAYER, "PlayerInteractEntityEvent", s);
+        } catch (Exception ignored) {}
     }
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
-        ArrayList<Material> applicable = new ArrayList<>();
-        applicable.add(Material.ANVIL);
-        applicable.add(Material.JUKEBOX);
-        applicable.add(Material.LECTERN);
-        applicable.add(Material.BLAST_FURNACE);
-        applicable.add(Material.LODESTONE);
-        applicable.add(Material.BREWING_STAND);
-        applicable.add(Material.LOOM);
-        applicable.add(Material.NOTE_BLOCK);
-        applicable.add(Material.CAULDRON);
-        applicable.add(Material.CHEST);
-        applicable.add(Material.PUMPKIN);
-        applicable.add(Material.COMMAND_BLOCK);
-        applicable.add(Material.COMPOSTER);
-        applicable.add(Material.CRAFTING_TABLE);
-        applicable.add(Material.RESPAWN_ANCHOR);
-        applicable.add(Material.ENCHANTING_TABLE);
-        applicable.add(Material.END_PORTAL_FRAME);
-        applicable.add(Material.SMITHING_TABLE);
-        applicable.add(Material.SMOKER);
-        applicable.add(Material.FURNACE);
-        applicable.add(Material.GRINDSTONE);
-        applicable.add(Material.TNT);
-        applicable.add(Material.TRAPPED_CHEST);
-        applicable.add(Material.ITEM_FRAME);
-        if (applicable.contains(Objects.requireNonNull(event.getClickedBlock()).getType())) {
-            String s = event.getPlayer().getDisplayName() + " interacted with " + Objects.requireNonNull(event.getClickedBlock()).getType().name() + " at " + LocationManager.xyz(Objects.requireNonNull(event.getClickedBlock()).getLocation());
-            Logger.log(Logger.Level.PLAYER, "PlayerInteractEvent", s);
-        }
+        try {
+            ArrayList<Material> applicable = new ArrayList<>();
+            applicable.add(Material.ANVIL);
+            applicable.add(Material.JUKEBOX);
+            applicable.add(Material.LECTERN);
+            applicable.add(Material.BLAST_FURNACE);
+            applicable.add(Material.LODESTONE);
+            applicable.add(Material.BREWING_STAND);
+            applicable.add(Material.LOOM);
+            applicable.add(Material.NOTE_BLOCK);
+            applicable.add(Material.CAULDRON);
+            applicable.add(Material.CHEST);
+            applicable.add(Material.PUMPKIN);
+            applicable.add(Material.COMMAND_BLOCK);
+            applicable.add(Material.COMPOSTER);
+            applicable.add(Material.CRAFTING_TABLE);
+            applicable.add(Material.RESPAWN_ANCHOR);
+            applicable.add(Material.ENCHANTING_TABLE);
+            applicable.add(Material.END_PORTAL_FRAME);
+            applicable.add(Material.SMITHING_TABLE);
+            applicable.add(Material.SMOKER);
+            applicable.add(Material.FURNACE);
+            applicable.add(Material.GRINDSTONE);
+            applicable.add(Material.TNT);
+            applicable.add(Material.TRAPPED_CHEST);
+            applicable.add(Material.ITEM_FRAME);
+            if (applicable.contains(Objects.requireNonNull(event.getClickedBlock()).getType())) {
+                String s = event.getPlayer().getDisplayName() + " interacted with " + Objects.requireNonNull(event.getClickedBlock()).getType().name() + " at " + LocationManager.xyz(Objects.requireNonNull(event.getClickedBlock()).getLocation());
+                Logger.log(Logger.Level.PLAYER, "PlayerInteractEvent", s);
+            }
+        } catch (Exception ignored) {}
     }
 
     @EventHandler
