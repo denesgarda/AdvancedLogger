@@ -3,8 +3,6 @@ package com.denesgarda.AdvancedLogger;
 import org.bukkit.Server;
 import org.bukkit.entity.Player;
 
-import java.util.Collection;
-
 public class IntermittentDataLogger implements Runnable {
     private final Server server;
 
