@@ -30,8 +30,12 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class Main extends JavaPlugin implements Listener {
+    public static java.util.logging.Logger logger;
+    public static JavaPlugin plugin;
     @Override
     public void onEnable() {
+        logger = getLogger();
+        plugin = this;
         getLogger().info("Loading AdvancedLogger...");
         this.getServer().getPluginManager().registerEvents(this, this);
         File file = new File("adv.log");
