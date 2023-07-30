@@ -100,9 +100,17 @@ public class Main extends JavaPlugin implements Listener {
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         String s;
         if (event.getDamager() instanceof Player) {
-            s = ((Player) event.getDamager()).getDisplayName() + " damaged " + event.getEntity().getType().name() + " by " + event.getDamage() + " using " + event.getCause().name() + " at " + LocationManager.xyz(event.getEntity().getLocation());
+            if (event.getEntity() instanceof Player) {
+                s = ((Player) event.getDamager()).getDisplayName() + " damaged " + ((Player) event.getEntity()).getDisplayName() + " by " + event.getDamage() + " using " + event.getCause().name() + " at " + LocationManager.xyz(event.getEntity().getLocation());
+            } else {
+                s = ((Player) event.getDamager()).getDisplayName() + " damaged " + event.getEntity().getType().name() + " by " + event.getDamage() + " using " + event.getCause().name() + " at " + LocationManager.xyz(event.getEntity().getLocation());
+            }
         } else {
-            s = event.getDamager().getType().name() + " damaged " + event.getEntity().getType().name() + " by " + event.getDamage() + " using " + event.getCause().name() + " at " + LocationManager.xyz(event.getEntity().getLocation());
+            if (event.getEntity() instanceof Player) {
+                s = event.getDamager().getType().name() + " damaged " + ((Player) event.getEntity()).getDisplayName() + " by " + event.getDamage() + " using " + event.getCause().name() + " at " + LocationManager.xyz(event.getEntity().getLocation());
+            } else {
+                s = event.getDamager().getType().name() + " damaged " + event.getEntity().getType().name() + " by " + event.getDamage() + " using " + event.getCause().name() + " at " + LocationManager.xyz(event.getEntity().getLocation());
+            }
         }
         Logger.log(Logger.Level.ENTITY, "EntityDamageByEntityEvent", s);
     }
