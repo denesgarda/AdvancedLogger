@@ -1,5 +1,6 @@
 package com.denesgarda.AdvancedLogger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -44,6 +45,8 @@ public class Main extends JavaPlugin implements Listener {
                 getLogger().info("Failed to create log file.");
             }
         }
+        IntermittentDataLogger intermittentDataLogger = new IntermittentDataLogger(Bukkit.getServer());
+        Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, intermittentDataLogger, 0, 600);
         getLogger().info("Advanced logger has been enabled.");
         Logger.log(Logger.Level.PLUGIN, "Enable", "AdvancedLogger enabled");
     }

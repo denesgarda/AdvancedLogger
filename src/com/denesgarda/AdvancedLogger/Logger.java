@@ -25,6 +25,7 @@ public class Logger {
         RAID,
         SERVER,
         WEATHER,
-        WORLD
+        WORLD,
+        INTERMITTENT_DATA_LOGGER
     }
 }
