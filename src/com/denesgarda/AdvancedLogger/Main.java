@@ -1,16 +1,16 @@
 package com.denesgarda.AdvancedLogger;
 
-import com.oracle.tools.packager.Log;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
 import org.bukkit.event.enchantment.EnchantItemEvent;
 import org.bukkit.event.entity.*;
-import org.bukkit.event.inventory.*;
+import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.inventory.InventoryAction;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.raid.RaidFinishEvent;
 import org.bukkit.event.raid.RaidSpawnWaveEvent;
@@ -27,12 +27,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Objects;
 
 public class Main extends JavaPlugin implements Listener {
+    public static java.util.logging.Logger logger;
+    public static JavaPlugin plugin;
     @Override
     public void onEnable() {
+        logger = getLogger();
+        plugin = this;
         getLogger().info("Loading AdvancedLogger...");
         this.getServer().getPluginManager().registerEvents(this, this);
         File file = new File("adv.log");
@@ -46,6 +49,8 @@ public class Main extends JavaPlugin implements Listener {
                 getLogger().info("Failed to create log file.");
             }
         }
+        IntermittentDataLogger intermittentDataLogger = new IntermittentDataLogger(Bukkit.getServer());
+        Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, intermittentDataLogger, 0, 600);
         getLogger().info("Advanced logger has been enabled.");
         Logger.log(Logger.Level.PLUGIN, "Enable", "AdvancedLogger enabled");
     }
@@ -102,9 +107,17 @@ public class Main extends JavaPlugin implements Listener {
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         String s;
         if (event.getDamager() instanceof Player) {
-            s = ((Player) event.getDamager()).getDisplayName() + " damaged " + event.getEntity().getType().name() + " by " + event.getDamage() + " using " + event.getCause().name() + " at " + LocationManager.xyz(event.getEntity().getLocation());
+            if (event.getEntity() instanceof Player) {
+                s = ((Player) event.getDamager()).getDisplayName() + " damaged " + ((Player) event.getEntity()).getDisplayName() + " by " + event.getDamage() + " using " + event.getCause().name() + " at " + LocationManager.xyz(event.getEntity().getLocation());
+            } else {
+                s = ((Player) event.getDamager()).getDisplayName() + " damaged " + event.getEntity().getType().name() + " by " + event.getDamage() + " using " + event.getCause().name() + " at " + LocationManager.xyz(event.getEntity().getLocation());
+            }
         } else {
-            s = event.getDamager().getType().name() + " damaged " + event.getEntity().getType().name() + " by " + event.getDamage() + " using " + event.getCause().name() + " at " + LocationManager.xyz(event.getEntity().getLocation());
+            if (event.getEntity() instanceof Player) {
+                s = event.getDamager().getType().name() + " damaged " + ((Player) event.getEntity()).getDisplayName() + " by " + event.getDamage() + " using " + event.getCause().name() + " at " + LocationManager.xyz(event.getEntity().getLocation());
+            } else {
+                s = event.getDamager().getType().name() + " damaged " + event.getEntity().getType().name() + " by " + event.getDamage() + " using " + event.getCause().name() + " at " + LocationManager.xyz(event.getEntity().getLocation());
+            }
         }
         Logger.log(Logger.Level.ENTITY, "EntityDamageByEntityEvent", s);
     }
