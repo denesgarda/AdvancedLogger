@@ -408,4 +408,16 @@ public class Main extends JavaPlugin implements Listener {
         String s = event.getBlock().getType().name() + " was burned by " + Objects.requireNonNull(event.getIgnitingBlock()).getType().name() + " at " + LocationManager.xyz(event.getBlock().getLocation());
         Logger.log(Logger.Level.BLOCK, "BlockBurnEvent", s);
     }
+
+    @EventHandler
+    public void onBlockDispenseArmor(BlockDispenseArmorEvent event) {
+        String s = event.getItem().getType().name() + " was dispensed by " + event.getBlock().getType().name() + " at " + LocationManager.xyz(event.getBlock().getLocation());
+        if (event.getTargetEntity() instanceof Player) {
+            s += " onto " + ((Player) event.getTargetEntity()).getDisplayName();
+        } else {
+            s += " onto " + event.getTargetEntity().getType().name();
+        }
+        s += " at " + LocationManager.xyz(event.getTargetEntity().getLocation());
+        Logger.log(Logger.Level.BLOCK, "BlockDispenseArmorEvent", s);
+    }
 }
