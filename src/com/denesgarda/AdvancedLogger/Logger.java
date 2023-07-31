@@ -23,8 +23,8 @@ public class Logger {
             out.close();
             File file = new File("adv.log");
             long size = file.length();
-            if (size >= (1073741824 / 2)) {
-                Main.logger.info("adv.log file size has reached 512 MB.");
+            if (size >= 1073741824) {
+                Main.logger.info("adv.log file size has reached 1 GB.");
                 BukkitTask task = Bukkit.getServer().getScheduler().runTaskTimerAsynchronously(Main.plugin, new Runnable() {
                     @Override
                     public void run() {
