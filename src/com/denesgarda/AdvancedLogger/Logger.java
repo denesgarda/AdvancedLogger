@@ -2,6 +2,7 @@ package com.denesgarda.AdvancedLogger;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.io.*;
 import java.net.URI;
@@ -24,13 +25,13 @@ public class Logger {
             long size = file.length();
             if (size >= (1073741824 / 2)) {
                 Main.logger.info("adv.log file size has reached 512 MB.");
-                int task = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Main.plugin, new Runnable() {
+                BukkitTask task = Bukkit.getServer().getScheduler().runTaskTimerAsynchronously(Main.plugin, new Runnable() {
                     @Override
                     public void run() {
                         Main.logger.warning("Packaging adv.log - DO NOT INTERRUPT!");
                     }
                 }, 0, 20);
-                Bukkit.getServer().getScheduler().runTask(Main.plugin, () -> {
+                Bukkit.getServer().getScheduler().runTaskAsynchronously(Main.plugin, () -> {
                     try {
                         File f = new File("adv.log");
                         String fileName = new Date().toString().replaceAll(":", "_");
@@ -57,7 +58,7 @@ public class Logger {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                    Bukkit.getServer().getScheduler().cancelTask(task);
+                    task.cancel();
                     Main.logger.info("Adv.log has been successfully packaged.");
                 });
             }
