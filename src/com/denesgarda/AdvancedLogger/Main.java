@@ -392,4 +392,13 @@ public class Main extends JavaPlugin implements Listener {
         String s = "World saved";
         Logger.log(Logger.Level.WORLD, "WorldSaveEvent", s);
     }
+
+    @EventHandler
+    public void onBellRing(BellRingEvent event) {
+        String s = "Bell at " + LocationManager.xyz(event.getBlock().getLocation()) + " was rung";
+        if (event.getEntity() instanceof Player) {
+            s += " by " + ((Player) event.getEntity()).getDisplayName();
+        }
+        Logger.log(Logger.Level.BLOCK, "BellRingEvent", s);
+    }
 }
