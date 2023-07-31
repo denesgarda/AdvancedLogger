@@ -395,10 +395,17 @@ public class Main extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onBellRing(BellRingEvent event) {
-        String s = "Bell at " + LocationManager.xyz(event.getBlock().getLocation()) + " was rung";
+        String s = "Bell was rung";
         if (event.getEntity() instanceof Player) {
             s += " by " + ((Player) event.getEntity()).getDisplayName();
         }
+        s += " at " + LocationManager.xyz(event.getBlock().getLocation());
         Logger.log(Logger.Level.BLOCK, "BellRingEvent", s);
+    }
+
+    @EventHandler
+    public void onBlockBurn(BlockBurnEvent event) {
+        String s = event.getBlock().getType().name() + " was burned by " + Objects.requireNonNull(event.getIgnitingBlock()).getType().name() + " at " + LocationManager.xyz(event.getBlock().getLocation());
+        Logger.log(Logger.Level.BLOCK, "BlockBurnEvent", s);
     }
 }
