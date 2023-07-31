@@ -1,5 +1,7 @@
 # Advanced Logger
 
-Download the latest release [here](https://raw.githubusercontent.com/DenDen747/AdvancedLogger/main/builds/AdvancedLogger_2.0.jar).
+Download the latest release [here](https://raw.githubusercontent.com/DenDen747/AdvancedLogger/main/builds/AdvancedLogger_2.1.jar).
 
-NO CONFIG REQUIRED - INSTALL AND GO!
+NO CONFIG REQUIRED - INSTALL AND GO! 
+
+Fully optimized out the box.

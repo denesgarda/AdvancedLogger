@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="AdvancedLogger.jar">
-    <output-path>$PROJECT_DIR$/../../Minecraft Servers/spigot testing server/plugins</output-path>
-    <root id="archive" name="AdvancedLogger.jar.jar">
-      <element id="module-output" name="AdvancedLogger" />
-      <element id="file-copy" path="$PROJECT_DIR$/src/plugin.yml" />
-    </root>
-  </artifact>
-</component>
