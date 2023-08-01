@@ -426,4 +426,21 @@ public class Main extends JavaPlugin implements Listener {
         String s = event.getBlock().getType().name() + " decayed at " + LocationManager.xyz(event.getBlock().getLocation());
         Logger.log(Logger.Level.BLOCK, "LeavesDecayEvent", s);
     }
+
+    @EventHandler
+    public void onTNTPrime(TNTPrimeEvent event) {
+        String s = "TNT primed because of " + event.getCause().name();
+        if (event.getPrimingEntity() != null) {
+            if (event.getPrimingEntity() instanceof Player) {
+                s += " by player " + ((Player) event.getPrimingEntity()).getDisplayName();
+            } else {
+                s += " by entity " + event.getPrimingEntity().getType().name();
+            }
+        }
+        if (event.getPrimingBlock() != null) {
+            s += " by block " + event.getPrimingBlock().getType().name();
+        }
+        s += " at " + LocationManager.xyz(event.getBlock().getLocation());
+        Logger.log(Logger.Level.BLOCK, "TNTPrimeEvent", s);
+    }
 }
