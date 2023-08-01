@@ -420,4 +420,10 @@ public class Main extends JavaPlugin implements Listener {
         s += " at " + LocationManager.xyz(event.getTargetEntity().getLocation());
         Logger.log(Logger.Level.BLOCK, "BlockDispenseArmorEvent", s);
     }
+
+    @EventHandler
+    public void onLeavesDecay(LeavesDecayEvent event) {
+        String s = event.getBlock().getType().name() + " decayed at " + LocationManager.xyz(event.getBlock().getLocation());
+        Logger.log(Logger.Level.BLOCK, "LeavesDecayEvent", s);
+    }
 }
