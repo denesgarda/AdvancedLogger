@@ -140,20 +140,20 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onEntityPickupItemEvent(EntityPickupItemEvent event) {
+    public void onEntityPickupItem(EntityPickupItemEvent event) {
         String s;
         if (event.getEntity() instanceof Player) {
             s = ((Player) event.getEntity()).getDisplayName() + " picked up " + event.getItem().getName() + " at " + LocationManager.xyz(event.getEntity().getLocation());
         } else {
             s = event.getEntity().getType().name() + " picked up " + event.getItem().getName() + " at " + LocationManager.xyz(event.getEntity().getLocation());
         }
-        Logger.log(Logger.Level.ENTITY, "EntityDeathEvent", s);
+        Logger.log(Logger.Level.ENTITY, "EntityPickupItemEvent", s);
     }
 
     @EventHandler
     public void onEntityExplode(EntityExplodeEvent event) {
         String s = event.getEntity().getType().name() + " exploded at " + LocationManager.xyz(event.getLocation());
-        Logger.log(Logger.Level.ENTITY, "EntityDeathEvent", s);
+        Logger.log(Logger.Level.ENTITY, "EntityExplodeEvent", s);
     }
 
     @EventHandler
@@ -448,5 +448,10 @@ public class Main extends JavaPlugin implements Listener {
     public void onCreatureSpawn(CreatureSpawnEvent event) {
         String s = event.getEntity().getName() + " spawned because of " + event.getSpawnReason() + " at " + LocationManager.xyz(event.getEntity().getLocation());
         Logger.log(Logger.Level.ENTITY, "CreatureSpawnEvent", s);
+    }
+
+    public void onEntityDropItem(EntityDropItemEvent event) {
+        String s = event.getEntity() + " dropped " + event.getItemDrop().getItemStack().getType().name() + " at " + LocationManager.xyz(event.getEntity().getLocation());
+        Logger.log(Logger.Level.ENTITY, "EntityDropItemEvent", s);
     }
 }
