@@ -443,4 +443,10 @@ public class Main extends JavaPlugin implements Listener {
         s += " at " + LocationManager.xyz(event.getBlock().getLocation());
         Logger.log(Logger.Level.BLOCK, "TNTPrimeEvent", s);
     }
+
+    @EventHandler
+    public void onCreatureSpawn(CreatureSpawnEvent event) {
+        String s = event.getEntity().getName() + " spawned because of " + event.getSpawnReason() + " at " + LocationManager.xyz(event.getEntity().getLocation());
+        Logger.log(Logger.Level.ENTITY, "CreatureSpawnEvent", s);
+    }
 }
