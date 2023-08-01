@@ -389,7 +389,7 @@ public class Main extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onWorldSave(WorldSaveEvent event) {
-        String s = "World saved";
+        String s = "World " + event.getWorld().getEnvironment() + " saved";
         Logger.log(Logger.Level.WORLD, "WorldSaveEvent", s);
     }
 
