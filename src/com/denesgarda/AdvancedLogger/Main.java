@@ -450,6 +450,7 @@ public class Main extends JavaPlugin implements Listener {
         Logger.log(Logger.Level.ENTITY, "CreatureSpawnEvent", s);
     }
 
+    @EventHandler
     public void onEntityDropItem(EntityDropItemEvent event) {
         String s = event.getEntity() + " dropped " + event.getItemDrop().getItemStack().getType().name() + " at " + LocationManager.xyz(event.getEntity().getLocation());
         Logger.log(Logger.Level.ENTITY, "EntityDropItemEvent", s);
