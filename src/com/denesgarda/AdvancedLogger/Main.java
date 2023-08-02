@@ -140,20 +140,20 @@ public class Main extends JavaPlugin implements Listener {
     }
 
     @EventHandler
-    public void onEntityPickupItemEvent(EntityPickupItemEvent event) {
+    public void onEntityPickupItem(EntityPickupItemEvent event) {
         String s;
         if (event.getEntity() instanceof Player) {
             s = ((Player) event.getEntity()).getDisplayName() + " picked up " + event.getItem().getName() + " at " + LocationManager.xyz(event.getEntity().getLocation());
         } else {
             s = event.getEntity().getType().name() + " picked up " + event.getItem().getName() + " at " + LocationManager.xyz(event.getEntity().getLocation());
         }
-        Logger.log(Logger.Level.ENTITY, "EntityDeathEvent", s);
+        Logger.log(Logger.Level.ENTITY, "EntityPickupItemEvent", s);
     }
 
     @EventHandler
     public void onEntityExplode(EntityExplodeEvent event) {
         String s = event.getEntity().getType().name() + " exploded at " + LocationManager.xyz(event.getLocation());
-        Logger.log(Logger.Level.ENTITY, "EntityDeathEvent", s);
+        Logger.log(Logger.Level.ENTITY, "EntityExplodeEvent", s);
     }
 
     @EventHandler
@@ -389,7 +389,70 @@ public class Main extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onWorldSave(WorldSaveEvent event) {
-        String s = "World saved";
+        String s = "World " + event.getWorld().getEnvironment() + " saved";
         Logger.log(Logger.Level.WORLD, "WorldSaveEvent", s);
+    }
+
+    @EventHandler
+    public void onBellRing(BellRingEvent event) {
+        String s = "Bell was rung";
+        if (event.getEntity() instanceof Player) {
+            s += " by " + ((Player) event.getEntity()).getDisplayName();
+        }
+        s += " at " + LocationManager.xyz(event.getBlock().getLocation());
+        Logger.log(Logger.Level.BLOCK, "BellRingEvent", s);
+    }
+
+    @EventHandler
+    public void onBlockBurn(BlockBurnEvent event) {
+        String s = event.getBlock().getType().name() + " was burned by " + Objects.requireNonNull(event.getIgnitingBlock()).getType().name() + " at " + LocationManager.xyz(event.getBlock().getLocation());
+        Logger.log(Logger.Level.BLOCK, "BlockBurnEvent", s);
+    }
+
+    @EventHandler
+    public void onBlockDispenseArmor(BlockDispenseArmorEvent event) {
+        String s = event.getItem().getType().name() + " was dispensed by " + event.getBlock().getType().name() + " at " + LocationManager.xyz(event.getBlock().getLocation());
+        if (event.getTargetEntity() instanceof Player) {
+            s += " onto " + ((Player) event.getTargetEntity()).getDisplayName();
+        } else {
+            s += " onto " + event.getTargetEntity().getType().name();
+        }
+        s += " at " + LocationManager.xyz(event.getTargetEntity().getLocation());
+        Logger.log(Logger.Level.BLOCK, "BlockDispenseArmorEvent", s);
+    }
+
+    @EventHandler
+    public void onLeavesDecay(LeavesDecayEvent event) {
+        String s = event.getBlock().getType().name() + " decayed at " + LocationManager.xyz(event.getBlock().getLocation());
+        Logger.log(Logger.Level.BLOCK, "LeavesDecayEvent", s);
+    }
+
+    @EventHandler
+    public void onTNTPrime(TNTPrimeEvent event) {
+        String s = "TNT primed because of " + event.getCause().name();
+        if (event.getPrimingEntity() != null) {
+            if (event.getPrimingEntity() instanceof Player) {
+                s += " by player " + ((Player) event.getPrimingEntity()).getDisplayName();
+            } else {
+                s += " by entity " + event.getPrimingEntity().getType().name();
+            }
+        }
+        if (event.getPrimingBlock() != null) {
+            s += " by block " + event.getPrimingBlock().getType().name();
+        }
+        s += " at " + LocationManager.xyz(event.getBlock().getLocation());
+        Logger.log(Logger.Level.BLOCK, "TNTPrimeEvent", s);
+    }
+
+    @EventHandler
+    public void onCreatureSpawn(CreatureSpawnEvent event) {
+        String s = event.getEntity().getName() + " spawned because of " + event.getSpawnReason() + " at " + LocationManager.xyz(event.getEntity().getLocation());
+        Logger.log(Logger.Level.ENTITY, "CreatureSpawnEvent", s);
+    }
+
+    @EventHandler
+    public void onEntityDropItem(EntityDropItemEvent event) {
+        String s = event.getEntity() + " dropped " + event.getItemDrop().getItemStack().getType().name() + " at " + LocationManager.xyz(event.getEntity().getLocation());
+        Logger.log(Logger.Level.ENTITY, "EntityDropItemEvent", s);
     }
 }
